@@ -1,18 +1,50 @@
-<table matSort (matSortChange)="sortData($event)">
-    <tr>
-      <th mat-sort-header="name">Dessert (100g)</th>
-      <th mat-sort-header="calories">Calories</th>
-      <th mat-sort-header="fat">Fat (g)</th>
-      <th mat-sort-header="carbs">Carbs (g)</th>
-      <th mat-sort-header="protein">Protein (g)</th>
-    </tr>
+<div class="container">
+  <div class="position-absolute">
+    <mat-toolbar color="primary">
+      <span>Owner</span>
+    </mat-toolbar>
+  </div>
+    <table matSort (matSortChange)="sortData($event)" overflow="auto">
+      <tr>
+        <th mat-sort-header="name">First Name</th>
+        <th mat-sort-header="calories">Last Name</th>
+        <th mat-sort-header="carbs">Date Created</th>
+        <th mat-sort-header="fat">Date Modified</th>
+        <th mat-sort-header="protein">Protein (g)</th>
+      </tr>
+      <tr *ngFor="let dessert of sortedData">
+        <td>{{dessert.name}}</td>
+        <td>{{dessert.calories}}</td>
+        <td>{{dessert.fat}}</td>
+        <td>{{dessert.carbs}}</td>
+        <td>{{dessert.protein}}</td>
+      </tr>
+    </table>
+
+    <button mat-stroked-button color="primary">ADD</button>
   
-    <tr *ngFor="let dessert of sortedData">
-      <td>{{dessert.name}}</td>
-      <td>{{dessert.calories}}</td>
-      <td>{{dessert.fat}}</td>
-      <td>{{dessert.carbs}}</td>
-      <td>{{dessert.protein}}</td>
-    </tr>
-  </table>
+</div>
+<!-- 
+<mat-toolbar color="primary">
+    <span>Owner</span>
+</mat-toolbar>
+<table matSort (matSortChange)="sortData($event)">
+  <tr>
+    <th mat-sort-header="name">First Name</th>
+    <th mat-sort-header="calories">Last Name</th>
+    <th mat-sort-header="carbs">Date Created</th>
+    <th mat-sort-header="fat">Date Modified</th>
+    <th mat-sort-header="protein">Protein (g)</th>
+  </tr>
+
+  <tr *ngFor="let dessert of sortedData">
+    <td>{{dessert.name}}</td>
+    <td>{{dessert.calories}}</td>
+    <td>{{dessert.fat}}</td>
+    <td>{{dessert.carbs}}</td>
+    <td>{{dessert.protein}}</td>
+  </tr>
+</table>
+<button mat-stroked-button color="primary">ADD</button>
+ -->
   

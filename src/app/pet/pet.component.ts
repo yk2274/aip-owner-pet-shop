@@ -8,6 +8,7 @@ export interface Dessert {
   name: string;
   protein: number;
 }
+
 @Component({
   selector: 'app-pet',
   templateUrl: './pet.component.html',

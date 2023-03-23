@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-
+import { NavbarComponent } from '../navbar/navbar.component';
 export interface Dessert {
   calories: number;
   carbs: number;
@@ -21,6 +21,11 @@ export class OwnerComponent {
     {name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4},
     {name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6},
     {name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4},
+    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
+    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
+    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
+    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
+    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
     {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
   ];
 
