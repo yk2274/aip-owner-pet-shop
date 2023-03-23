@@ -5,6 +5,6 @@ export interface Pet {
     name: string,
     breed: string,
     owner: Owner,
-    dateCreated: Date,
-    dateModified: Date
+    dateCreated: string,
+    dateModified: string
 }

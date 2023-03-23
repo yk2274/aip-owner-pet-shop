@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-
-export interface Dessert {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
+import { Pet } from '../interface/pet';
+import { PetService } from '../service/pet.service';
 
 @Component({
   selector: 'app-pet',
@@ -16,22 +10,21 @@ export interface Dessert {
 })
 
 export class PetComponent {
-  desserts: Dessert[] = [
-    {name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4},
-    {name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4},
-    {name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6},
-    {name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-  ];
+  pets: Pet[] = [];
+  sortedData: Pet[] = [];
 
-  sortedData: Dessert[];
+  constructor(private petService: PetService) { }
 
-  constructor() {
-    this.sortedData = this.desserts.slice();
+  ngOnInit(): void {
+    this.petService.getPets()
+      .subscribe(pets => {
+        this.pets = pets
+        this.sortedData = pets
+      });
   }
 
   sortData(sort: Sort) {
-    const data = this.desserts.slice();
+    const data = this.pets.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -40,16 +33,18 @@ export class PetComponent {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
+        case 'id':
+          return compare(a.id, b.id, isAsc);
         case 'name':
           return compare(a.name, b.name, isAsc);
-        case 'calories':
-          return compare(a.calories, b.calories, isAsc);
-        case 'fat':
-          return compare(a.fat, b.fat, isAsc);
-        case 'carbs':
-          return compare(a.carbs, b.carbs, isAsc);
-        case 'protein':
-          return compare(a.protein, b.protein, isAsc);
+        case 'breed':
+          return compare(a.breed, b.breed, isAsc);
+        // case 'ownerId':
+        //   return compare(a.breed, b.breed, isAsc);
+        case 'dateCreated':
+          return compare(a.dateCreated, b.dateCreated, isAsc);
+        case 'dateModified':
+          return compare(a.dateModified, b.dateModified, isAsc);
         default:
           return 0;
       }

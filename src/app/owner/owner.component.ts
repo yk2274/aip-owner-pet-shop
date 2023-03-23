@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-import { NavbarComponent } from '../navbar/navbar.component';
-export interface Dessert {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
+import { Owner } from '../interface/owner';
+import { OwnerService } from '../service/owner.service';
+
 
 @Component({
   selector: 'app-owner',
@@ -15,28 +10,22 @@ export interface Dessert {
   styleUrls: ['./owner.component.css']
 })
 
-export class OwnerComponent {
-  desserts: Dessert[] = [
-    {name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4},
-    {name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4},
-    {name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6},
-    {name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-  ];
+export class OwnerComponent implements OnInit {
+  owners: Owner[] = [];
+  sortedData: Owner[] = [];
 
-  sortedData: Dessert[];
+  constructor(private ownerService: OwnerService) { }
 
-  constructor() {
-    this.sortedData = this.desserts.slice();
+  ngOnInit(): void {
+    this.ownerService.getOwners()
+      .subscribe(owners => {
+        this.owners = owners
+        this.sortedData = owners
+      });
   }
-
+  
   sortData(sort: Sort) {
-    const data = this.desserts.slice();
+    const data = this.owners.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -45,16 +34,16 @@ export class OwnerComponent {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'name':
-          return compare(a.name, b.name, isAsc);
-        case 'calories':
-          return compare(a.calories, b.calories, isAsc);
-        case 'fat':
-          return compare(a.fat, b.fat, isAsc);
-        case 'carbs':
-          return compare(a.carbs, b.carbs, isAsc);
-        case 'protein':
-          return compare(a.protein, b.protein, isAsc);
+        case 'id':
+          return compare(a.id, b.id, isAsc);
+        case 'firstName':
+          return compare(a.firstName, b.firstName, isAsc);
+        case 'lastName':
+          return compare(a.lastName, b.lastName, isAsc);
+        case 'dateCreated':
+          return compare(a.dateCreated, b.dateCreated, isAsc);
+        case 'dateModified':
+          return compare(a.dateModified, b.dateModified, isAsc);
         default:
           return 0;
       }

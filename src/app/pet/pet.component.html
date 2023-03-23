@@ -1,21 +1,24 @@
-<mat-toolbar color="primary">
-  <span>Pet</span>
-</mat-toolbar>
-<table matSort (matSortChange)="sortData($event)">
+<div>
+  <mat-toolbar class="toolbar" color="primary">
+    <span>Pet</span>
+    <button mat-button color="primary">ADD</button>
+  </mat-toolbar>
+  <table matSort (matSortChange)="sortData($event)" overflow="auto">
     <tr>
-      <th mat-sort-header="name">Dessert (100g)</th>
-      <th mat-sort-header="calories">Calories</th>
-      <th mat-sort-header="fat">Fat (g)</th>
-      <th mat-sort-header="carbs">Carbs (g)</th>
-      <th mat-sort-header="protein">Protein (g)</th>
+      <th mat-sort-header="id">ID</th>
+      <th mat-sort-header="name">Name</th>
+      <th mat-sort-header="breed">Breed</th>
+      <!-- <th mat-sort-header="owner">OwnerID</th> -->
+      <th mat-sort-header="dateCreated">Date Created</th>
+      <th mat-sort-header="dateModified">Date Modified</th>
     </tr>
-  
-    <tr *ngFor="let dessert of sortedData">
-      <td>{{dessert.name}}</td>
-      <td>{{dessert.calories}}</td>
-      <td>{{dessert.fat}}</td>
-      <td>{{dessert.carbs}}</td>
-      <td>{{dessert.protein}}</td>
+    <tr *ngFor="let pet of sortedData">
+      <td>{{pet.id}}</td>
+      <td>{{pet.name}}</td>
+      <td>{{pet.breed}}</td>
+      <!-- <td>{{pet.owner}}</td> -->
+      <td>{{pet.dateCreated}}</td>
+      <td>{{pet.dateModified}}</td>
     </tr>
   </table>
-  
+</div>
