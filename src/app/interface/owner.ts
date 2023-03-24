@@ -5,3 +5,8 @@ export interface Owner {
     dateCreated: string,
     dateModified: string
 }
+
+export interface OwnerRequest {
+    firstName: string,
+    lastName: string
+}

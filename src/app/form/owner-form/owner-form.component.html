@@ -1,0 +1,12 @@
+<form [formGroup]="formData" (ngSubmit)="onSubmit()" class="form">
+    <div>
+        <h1 class="form-header">New Owner</h1>
+    </div>
+    <div>
+        <input id="firstName" type="text" placeholder="First Name" formControlName="firstName"/>
+    </div>
+    <div>
+        <input id="lastName" type="text" placeholder="Last Name" formControlName="lastName"/>
+    </div>
+    <button class="submit-button" type="submit">Submit</button>
+</form>

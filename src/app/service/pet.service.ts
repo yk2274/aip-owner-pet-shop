@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { Pet } from '../interface/pet';
+import { Pet, PetRequest } from '../interface/pet';
 
 @Injectable({providedIn: 'root'})
 export class PetService {
@@ -21,12 +21,13 @@ export class PetService {
     );
   }
 
-  addPet$ = (pet: Pet) => <Observable<Pet>> this.http
-  .post<Pet>(`${this.api}/pets`, pet)
-    .pipe(
-      tap(console.log),
+  addPet(pet: PetRequest): Observable<Pet> {
+    return this.http.post<Pet>(`${this.api}/pets`, pet, this.httpOptions).pipe(
+      tap((newPet: Pet) => console.log(`pet added`)),
       catchError(this.handleError)
     );
+  }
+   
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error);

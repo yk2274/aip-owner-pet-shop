@@ -15,13 +15,20 @@ import { OwnerComponent } from './owner/owner.component';
 import { PetComponent } from './pet/pet.component';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { OwnerFormComponent } from './form/owner-form/owner-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { PetFormComponent } from './form/pet-form/pet-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     OwnerComponent,
-    PetComponent
+    PetComponent,
+    OwnerFormComponent,
+    PetFormComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +41,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatListModule,
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

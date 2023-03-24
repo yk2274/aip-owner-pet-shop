@@ -1,0 +1,13 @@
+.form {
+    width: 300px;
+    height: 250px;
+    display: grid;
+    justify-content: center;
+    align-content: space-evenly;
+
+}
+
+.submit-button {
+    justify-content: center;
+    align-content: center;
+}

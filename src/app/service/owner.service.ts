@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { Owner } from '../interface/owner';
+import { Owner, OwnerRequest } from '../interface/owner';
 
 @Injectable({providedIn: 'root'})
 export class OwnerService {
@@ -21,12 +21,12 @@ export class OwnerService {
     );
   }
 
-  addOwner$ = (owner: Owner) => <Observable<Owner>> this.http
-  .post<Owner>(`${this.api}/owners`, owner)
-    .pipe(
-      tap(console.log),
+  addOwner(owner: OwnerRequest): Observable<Owner> {
+    return this.http.post<Owner>(`${this.api}/owners`, owner, this.httpOptions).pipe(
+      tap((newOwner: Owner) => console.log(`owner added`)),
       catchError(this.handleError)
     );
+  } 
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error);

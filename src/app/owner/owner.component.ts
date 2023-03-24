@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Owner } from '../interface/owner';
 import { OwnerService } from '../service/owner.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { OwnerFormComponent } from '../form/owner-form/owner-form.component';
 
 @Component({
   selector: 'app-owner',
@@ -13,10 +14,18 @@ import { OwnerService } from '../service/owner.service';
 export class OwnerComponent implements OnInit {
   owners: Owner[] = [];
   sortedData: Owner[] = [];
+  opened = false;
 
-  constructor(private ownerService: OwnerService) { }
+  constructor(
+    private ownerService: OwnerService,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
+    this.loadOwner();
+  }
+
+  loadOwner(): void {
     this.ownerService.getOwners()
       .subscribe(owners => {
         this.owners = owners
@@ -47,6 +56,13 @@ export class OwnerComponent implements OnInit {
         default:
           return 0;
       }
+    });
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(OwnerFormComponent)
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadOwner();
     });
   }
 }

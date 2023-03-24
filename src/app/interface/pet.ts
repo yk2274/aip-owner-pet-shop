@@ -8,3 +8,8 @@ export interface Pet {
     dateCreated: string,
     dateModified: string
 }
+
+export interface PetRequest {
+    name: string,
+    breed: string
+}

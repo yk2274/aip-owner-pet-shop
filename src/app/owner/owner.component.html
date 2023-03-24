@@ -1,6 +1,6 @@
 <mat-toolbar class="toolbar" color="primary">
   <span>Owner</span>
-  <button mat-button color="primary">ADD</button>
+  <button mat-button color="primary" (click)="openDialog()">ADD</button>
 </mat-toolbar>
 <table matSort (matSortChange)="sortData($event)" overflow="auto">
   <tr>
@@ -9,6 +9,7 @@
     <th mat-sort-header="lastName">Last Name</th>
     <th mat-sort-header="dateCreated">Date Created</th>
     <th mat-sort-header="dateModified">Date Modified</th>
+    <th mat-sort-header="action">Action</th>
   </tr>
   <tr *ngFor="let owner of sortedData">
     <td>{{owner.id}}</td>
@@ -16,6 +17,6 @@
     <td>{{owner.lastName}}</td>
     <td>{{owner.dateCreated}}</td>
     <td>{{owner.dateModified}}</td>
+    <td><button mat-button color="primary">view pet</button></td>
   </tr>
 </table>
-

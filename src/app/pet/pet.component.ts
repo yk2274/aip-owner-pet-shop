@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
+import { PetFormComponent } from '../form/pet-form/pet-form.component';
 import { Pet } from '../interface/pet';
 import { PetService } from '../service/pet.service';
 
@@ -12,15 +14,14 @@ import { PetService } from '../service/pet.service';
 export class PetComponent {
   pets: Pet[] = [];
   sortedData: Pet[] = [];
-
-  constructor(private petService: PetService) { }
+  constructor(
+    private petService: PetService,
+    private dialog: MatDialog
+    
+    ) { }
 
   ngOnInit(): void {
-    this.petService.getPets()
-      .subscribe(pets => {
-        this.pets = pets
-        this.sortedData = pets
-      });
+    this.loadPet();
   }
 
   sortData(sort: Sort) {
@@ -39,8 +40,8 @@ export class PetComponent {
           return compare(a.name, b.name, isAsc);
         case 'breed':
           return compare(a.breed, b.breed, isAsc);
-        // case 'ownerId':
-        //   return compare(a.breed, b.breed, isAsc);
+        case 'owner':
+          return compare(a.owner.firstName, b.owner.firstName, isAsc);
         case 'dateCreated':
           return compare(a.dateCreated, b.dateCreated, isAsc);
         case 'dateModified':
@@ -49,6 +50,21 @@ export class PetComponent {
           return 0;
       }
     });
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(PetFormComponent)
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadPet();
+    })
+  }
+
+  loadPet() {
+    this.petService.getPets()
+      .subscribe(pets => {
+        this.pets = pets
+        this.sortedData = pets
+      })
   }
 }
 
